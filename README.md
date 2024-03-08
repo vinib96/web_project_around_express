@@ -7,7 +7,9 @@ O projeto "Ao redor dos EUA" (referente a Sprint 13) do curso de "Desenvolvedor 
 Algumas das tecnologias utilizadas foram:
 
 -JavaScript;
+
 -Node.js;
+
 -Framework Express (para criação do sevidor e rotas).
 
 ## Demonstração
