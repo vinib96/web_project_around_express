@@ -5,7 +5,7 @@ const cardsRoute = require("./routes/cards");
 const { PORT = 3000 } = process.env;
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Olá, mundo");
 });
 
 app.listen(PORT, () => {
