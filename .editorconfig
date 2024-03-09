@@ -18,6 +18,8 @@ indent_size = 2
 # Valores possíveis - if, crlf, cr
 end_of_line = lf
 
+quote_type = single
+
 # Codificação dos caracteres dos arquivos
 # Valores possíveis - latin1, utf-8, utf-16be, utf-16le
 charset = utf-8
@@ -32,3 +34,4 @@ trim_trailing_whitespace = false
 # Denota se o arquivo deve terminar com uma nova linha
 # Valores possíveis - true, false
 insert_final_newline = true
+
