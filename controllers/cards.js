@@ -7,7 +7,12 @@ module.exports.getCards = (req, res) => {
 };
 
 module.exports.deleteCardsById = (req, res) => {
-  Card.findById(req.params._id)
+  Card.findById(req.params.cardId)
+    .orFail(() => {
+      const error = new Error('Nenhum cartão encontrado com esse id');
+      error.statusCode = 404;
+      throw error;
+    })
     .then((cards) => res.send({ data: cards }))
     .catch(() => res.status(500).send({ message: 'Error' }));
 };
@@ -19,5 +24,25 @@ module.exports.createCard = (req, res) => {
   Card.create({ name, link, owner: req.user._id })
 
     .then((cards) => res.send({ data: cards }))
-    .catch((err) => res.status(500).send({ message: err }));
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        res.status(400).send({ message: 'Dados inválidos' });
+      } else {
+        res.status(500).send({ message: 'Error' });
+      }
+    });
 };
+
+module.exports.likeCard = (req, res) =>
+  Card.findByIdAndUpdate(
+    req.params.cardId,
+    { $addToSet: { likes: req.user._id } },
+    { new: true }
+  );
+
+module.exports.dislikeCard = (req, res) =>
+  Card.findByIdAndUpdate(
+    req.params.cardId,
+    { $pull: { likes: req.user._id } },
+    { new: true }
+  );
