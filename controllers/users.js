@@ -1,7 +1,8 @@
 const User = require('../models/user');
+
 const ERROR_NOT_FOUND = 404;
 const ERROR_FETCH = 500;
-const ERROR_IVALID_DATA = 400;
+const ERROR_INVALID_DATA = 400;
 
 module.exports.getUsers = (req, res) => {
   User.find({})
@@ -22,7 +23,7 @@ module.exports.getUsersById = (req, res) => {
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        res.status(ERROR_IVALID_DATA).send({ message: 'Dados inválidos' });
+        res.status(ERROR_INVALID_DATA).send({ message: 'Dados inválidos' });
       } else {
         res.status(ERROR_FETCH).send({ message: 'Error' });
       }
@@ -36,7 +37,7 @@ module.exports.createUser = (req, res) => {
     .then((users) => res.send({ data: users }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        res.status(ERROR_IVALID_DATA).send({ message: 'Dados inválidos' });
+        res.status(ERROR_INVALID_DATA).send({ message: 'Dados inválidos' });
       } else {
         res.status(ERROR_FETCH).send({ message: 'Error' });
       }
@@ -48,7 +49,7 @@ module.exports.updateUser = (req, res) => {
   User.findByIdAndUpdate(req.user._id, { name, about }).then((users) =>
     res.send({ data: users }).catch((err) => {
       if (err.name === 'ValidationError') {
-        res.status(ERROR_IVALID_DATA).send({ message: 'Dados inválidos' });
+        res.status(ERROR_INVALID_DATA).send({ message: 'Dados inválidos' });
       } else {
         res.status(ERROR_FETCH).send({ message: 'Error' });
       }
@@ -61,7 +62,7 @@ module.exports.updateAvatar = (req, res) => {
   User.findByIdAndUpdate(req.user._id, { avatar }).then((users) =>
     res.send({ data: users }).catch((err) => {
       if (err.name === 'ValidationError') {
-        res.status(ERROR_IVALID_DATA).send({ message: 'Dados inválidos' });
+        res.status(ERROR_INVALID_DATA).send({ message: 'Dados inválidos' });
       } else {
         res.status(ERROR_FETCH).send({ message: 'Error' });
       }
